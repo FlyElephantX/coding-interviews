@@ -8,11 +8,14 @@ class ReorderArray {
         int low = 0;
         int high = arr.length - 1;
         while (low < high) {
-            if (arr[low] % 2 == 0) {
-                swap(arr, low, high);
-                high--;
-            } else {
+            while (low < high && arr[low] % 2 == 1) {
                 low++;
+            }
+            while (low < high && arr[high] % 2 == 0) {
+                high--;
+            }
+            if (low < high) {
+                swap(arr, low, high);
             }
         }
         System.out.println(Arrays.toString(arr));
