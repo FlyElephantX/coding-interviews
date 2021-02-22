@@ -30,6 +30,15 @@ class QueueWithTwoStacks {
 
         return s2.peek();
     }
+
+    public Integer poll1() {
+        if (s2.isEmpty()) {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+        }
+        return s2.isEmpty() ? -1 : s2.pop();
+    }
 }
 
 public class Solution {
@@ -39,9 +48,9 @@ public class Solution {
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
-        System.out.println(queue.poll());
-        System.out.println(queue.poll());
-        System.out.println(queue.poll());
-        System.out.println(queue.poll());
+        System.out.println(queue.poll1());
+        System.out.println(queue.poll1());
+        System.out.println(queue.poll1());
+        System.out.println(queue.poll1());
     }
 }

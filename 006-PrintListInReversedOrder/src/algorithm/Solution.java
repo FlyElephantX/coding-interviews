@@ -24,6 +24,27 @@ class PrintListInReversedOrder {
             System.out.println(stack.pop());
         }
     }
+
+    public void printListFromTailToHead1(ListNode listNode) {
+        if (listNode != null) {
+            printListFromTailToHead(listNode.next);
+            System.out.println(listNode.val);
+        }
+    }
+
+    public int[] reversePrint(ListNode head) {
+        Stack<Integer> stack = new Stack<>();
+        while (head != null) {
+            stack.push(head.val);
+            head = head.next;
+        }
+        int size = stack.size();
+        int[] res = new int[size];
+        for (int i = 0; i < size; i++) {
+            res[i] = stack.pop();
+        }
+        return res;
+    }
 }
 
 public class Solution {

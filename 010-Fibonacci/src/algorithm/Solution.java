@@ -22,7 +22,7 @@ public class Solution {
 
     public static void main(String[] args) {
         Fibonacci fibonacci = new Fibonacci();
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 100; i++) {
             long res = fibonacci.fibonacci(i);
             System.out.println(res);
         }

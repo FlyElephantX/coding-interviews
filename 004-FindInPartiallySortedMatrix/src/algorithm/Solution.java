@@ -2,8 +2,11 @@ package algorithm;
 
 class FindInPartiallySortedMatrix {
 
-    public boolean Find(int target, int[][] array) {
+    public boolean find(int target, int[][] array) {
         int row = array.length;
+        if (row == 0) {
+            return false;
+        }
         int column = array[0].length;
         int i = 0;
         int j = column - 1;
@@ -30,7 +33,7 @@ public class Solution {
                 {4, 7, 10, 13},
                 {6, 8, 11, 15}};
         FindInPartiallySortedMatrix sort = new FindInPartiallySortedMatrix();
-        boolean res =  sort.Find(100, arr);
+        boolean res =  sort.find(100, arr);
         System.out.println("查找结果:" + res);
     }
 }

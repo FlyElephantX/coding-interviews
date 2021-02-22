@@ -45,6 +45,25 @@ class MinNumberInRotatedArray {
         return min;
     }
 
+    public int minArray(int[] numbers) {
+        if (numbers.length == 0) {
+            return -1;
+        }
+        int low = 0;
+        int high = numbers.length - 1;
+        while (low < high) {
+            int privot = low + (high - low) / 2;
+            if (numbers[privot] < numbers[high]) {
+                high = privot;
+            } else if (numbers[privot] > numbers[high]) {
+                low = privot + 1;
+            } else {
+                high = high - 1;
+            }
+        }
+        return numbers[low];
+    }
+
 }
 
 public class Solution {
@@ -52,7 +71,9 @@ public class Solution {
     public static void main(String[] args) {
         MinNumberInRotatedArray roate = new MinNumberInRotatedArray();
         int[] arr = {1,0,1,1,1};
-        int val = roate.min(arr);
-        System.out.println("最小值:" + val);
+        int val1 = roate.min(arr);
+        System.out.println("最小值:" + val1);
+        int val2 = roate.minArray(arr);
+        System.out.println("最小值:" + val2);
     }
 }
