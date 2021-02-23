@@ -4,20 +4,31 @@ class NumericStrings {
 
     private int index = 0;
 
-    public boolean isNumerric(char[] str) {
-        if (str.length < 1) {
+    public boolean isNumber(String s) {
+        if (s == null || s.length() < 1) {
             return false;
         }
-        boolean flag = scanInteger(str);
-        if (index < str.length && str[index] == '.') {
+        //添加结束标志
+        s = s + '|';
+        //跳过首部的空格
+        char[] chars = s.toCharArray();
+        while(chars[index] == ' ') {
             index++;
-            flag = scanUnsignedInteger(str) || flag;
         }
-        if (index < str.length && (str[index] == 'E' || str[index] == 'e')) {
+        boolean flag = scanInteger(chars);
+        if (index < chars.length && chars[index] == '.') {
             index++;
-            flag = flag && scanInteger(str);
+            flag = scanUnsignedInteger(chars) || flag;
         }
-        return flag && index == str.length;
+        if (index < chars.length && (chars[index] == 'E' || chars[index] == 'e')) {
+            index++;
+            flag = flag && scanInteger(chars);
+        }
+        //跳过尾部空格
+        while(s.charAt(index) == ' '){
+            index++;
+        }
+        return flag && chars[index] == '|';
     }
 
     private boolean scanInteger(char[] str) {
@@ -40,8 +51,8 @@ public class Solution {
 
     public static void main(String[] args) {
         NumericStrings number = new NumericStrings();
-        char[] str = "-1E-16".toCharArray();
-        boolean res = number.isNumerric(str);
+        String s = "1 ";
+        boolean res = number.isNumber(s);
         if (res) {
             System.out.println("字符数字");
         } else {
