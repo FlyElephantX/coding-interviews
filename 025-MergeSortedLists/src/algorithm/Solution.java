@@ -21,35 +21,31 @@ class MergeSortedLists {
             return head1;
         }
         ListNode head = null;
-        ListNode node = null;
+        if (head1.val < head2.val) {
+            head = head1;
+            head1 = head1.next;
+        } else {
+            head = head2;
+            head2 = head2.next;
+        }
+        ListNode node = head;
         while (head1 != null && head2 != null) {
             if (head1.val < head2.val) {
-                if (head == null) {
-                    head = head1;
-                    node = head;
-                } else {
-                    head.next = head1;
-                    head = head.next;
-                }
+                node.next = head1;
                 head1 = head1.next;
             } else {
-                if (head == null) {
-                    head = head2;
-                    node = head;
-                } else {
-                    head.next = head2;
-                    head = head.next;
-                }
+                node.next = head2;
                 head2 = head2.next;
             }
+            node = node.next;
         }
         if (head1 != null) {
-            head.next = head1;
+            node.next = head1;
         }
         if (head2 != null) {
-            head.next = head2;
+            node.next = head2;
         }
-        return node;
+        return head;
     }
 
     public void printList(ListNode head) {
@@ -60,6 +56,41 @@ class MergeSortedLists {
             System.out.println(head.val);
             head = head.next;
         }
+    }
+
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        ListNode head = null;
+        if (l1.val < l2.val) {
+            head = l1;
+            l1 = l1.next;
+        } else {
+            head = l2;
+            l2 = l2.next;
+        }
+        ListNode cur = head;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+        if (l1 != null) {
+            cur.next = l1;
+        }
+        if (l2 != null) {
+            cur.next = l2;
+        }
+        return head;
     }
 }
 

@@ -31,6 +31,21 @@ class ReverseList {
             head = head.next;
         }
     }
+
+    public ListNode reverseList1(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode cur = head;
+        ListNode pre = null;
+        while (cur != null) {
+            ListNode tmp = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = tmp;
+        }
+        return pre;
+    }
 }
 
 public class Solution {
@@ -50,5 +65,7 @@ public class Solution {
         ReverseList list = new ReverseList();
         ListNode head = list.reverseList(node1);
         list.printList(head);
+        ListNode head1 = list.reverseList1(node1);
+        list.printList(head1);
     }
 }
