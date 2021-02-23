@@ -1,5 +1,8 @@
 package algorithm;
 
+import java.math.BigInteger;
+import java.util.Arrays;
+
 class CuttingRope {
 
     public int maxProductAfterCutting(int target) {
@@ -59,6 +62,35 @@ class CuttingRope {
         return dp[n];
     }
 
+    public int cuttingRope2(int n) {
+        BigInteger[] dp = new BigInteger[n + 1];
+        Arrays.fill(dp, BigInteger.valueOf(0));
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j < i; j++) {
+                BigInteger max = BigInteger.valueOf(j * (i - j)).max(dp[i - j].multiply(BigInteger.valueOf(j)));
+                dp[i]= dp[i].max(max);
+            }
+        }
+        return dp[n].mod(BigInteger.valueOf(1000000007)).intValue();
+    }
+
+    public int cuttingRope3(int n) {
+        if(n == 2) {
+            return 1;
+        }
+        if(n == 3) {
+            return 2;
+        }
+        int mod = (int)1e9 + 7;
+        long res = 1;
+        while(n > 4) {
+            res *= 3;
+            res %= mod;
+            n -= 3;
+        }
+        return (int)(res * n % mod);
+    }
+
 }
 
 public class Solution {
@@ -70,6 +102,10 @@ public class Solution {
         System.out.println("最大值1:" + res);
         System.out.println("最大值2:" + res);
         int res3 = rope.cuttingRope1(12);
-        System.out.println("最大值3:" + res);
+        System.out.println("最大值3:" + res3);
+        int res4 = rope.cuttingRope2(120);
+        System.out.println("最大值4:" + res4);
+        int res5 = rope.cuttingRope3(120);
+        System.out.println("最大值5:" + res5);
     }
 }
