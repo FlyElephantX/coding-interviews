@@ -1,7 +1,5 @@
 package algorithm;
 
-import com.sun.tools.corba.se.idl.StringGen;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,7 +142,7 @@ class StringPathInMatrix {
         }
         return false;
     }
-    
+
     boolean dfs(char[][] board, char[] word, int i, int j, int k) {
         if(i >= board.length || i < 0 || j >= board[0].length || j < 0 || board[i][j] != word[k]) return false;
         if(k == word.length - 1) return true;
@@ -178,7 +176,7 @@ public class Solution {
         String str4 = "AAB";
         char[][] martix5 = {{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}};
         String str5 = "SEE";
-        boolean isExist = path.exist1(martix5, str5);
+        boolean isExist = path.exist(martix5, str5);
         if (isExist) {
             System.out.println("存在路径");
         } else {

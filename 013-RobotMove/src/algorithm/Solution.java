@@ -40,6 +40,36 @@ class RobotMove {
         return sum;
     }
 
+    boolean[][] visited;
+    public int movingCount1(int m, int n, int k) {
+        this.visited = new boolean[m][n];
+        return dfs(m, n, k, 0, 0);
+    }
+
+    public int dfs(int m, int n, int k, int x, int y){
+        // 递归终止条件
+        if((get(x) + get(y) > k) || x < 0 || x >= m || y < 0 || y >= n || visited[x][y]){
+            return 0;
+        }
+        // 将该格子标记为已经访问过
+        visited[x][y] = true;
+        // 继续搜索四个方向
+        return 1 + dfs(m, n , k, x, y+1)
+                + dfs(m, n , k, x, y-1)
+                + dfs(m, n , k, x+1, y)
+                + dfs(m, n , k, x, y-1);
+    }
+
+
+    private int get(int x) {
+        int res = 0;
+        while (x != 0) {
+            res += x % 10;
+            x /= 10;
+        }
+        return res;
+    }
+
 }
 
 public class Solution {
@@ -48,5 +78,7 @@ public class Solution {
         RobotMove move = new RobotMove();
         int count = move.movingCount(10,3,3);
         System.out.println("格子总数:" + count);
+        int count1 = move.movingCount1(10,3,3);
+        System.out.println("格子总数:" + count1);
     }
 }
