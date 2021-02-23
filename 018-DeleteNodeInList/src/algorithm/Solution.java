@@ -35,6 +35,44 @@ class DeleteNodeInList {
             head = head.next;
         }
     }
+
+    public ListNode deleteNode(ListNode head, int val) {
+        if (head.val == val) {
+            return head.next;
+        }
+        ListNode node = head;
+        while (node != null) {
+            if (node.val == val) {
+                if (node.next == null) {
+                    ListNode tmp = head;
+                    while (tmp.next != null && tmp.next.val != val) {
+                        tmp = tmp.next;
+                    }
+                    tmp.next = null;
+                } else {
+                    node.val = node.next.val;
+                    node.next = node.next.next;
+                }
+                break;
+            }
+            node = node.next;
+        }
+        return head;
+    }
+
+    public ListNode deleteNode1(ListNode head, int val) {
+        if (head.val == val) {
+            return head.next;
+        }
+        ListNode cur = head;
+        while (cur.next != null && cur.next.val != val) {
+            cur = cur.next;
+        }
+        if (cur.next != null) { // 删除的val不存在链表中会出现cur.next = null
+            cur.next = cur.next.next;
+        }
+        return head;
+    }
 }
 
 public class Solution {
@@ -48,7 +86,9 @@ public class Solution {
         node2.next = node3;
         node3.next = node4;
         DeleteNodeInList list = new DeleteNodeInList();
-        list.deleteNode(node1, node4);
-        list.printNodeList(node1);
+//        list.deleteNode(node1, node4);
+//        list.printNodeList(node1);
+        ListNode cur = list.deleteNode1(node1, 30);
+        list.printNodeList(cur);
     }
 }
