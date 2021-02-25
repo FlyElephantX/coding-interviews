@@ -20,10 +20,10 @@ class SubstructureInTree {
                 result = doesTreeHaveTree(root1, root2);
             }
             if (!result) {
-                result = doesTreeHaveTree(root1.left, root2);
+                result = hasSubTree(root1.left, root2);
             }
             if (!result) {
-                result = doesTreeHaveTree(root1.right, root2);
+                result = hasSubTree(root1.right, root2);
             }
         }
         return result;
@@ -33,10 +33,7 @@ class SubstructureInTree {
         if (root2 == null) {
             return true;
         }
-        if (root1 == null) {
-            return false;
-        }
-        if (root1.val != root2.val) {
+        if (root1 == null || root1.val != root2.val) {
             return false;
         }
         return doesTreeHaveTree(root1.left, root2.left) && doesTreeHaveTree(root1.right, root2.right);

@@ -44,6 +44,25 @@ class NumberOf1 {
         }
         return ones;
     }
+
+    public int countDigitOne(int n) {
+        int digit = 1, res = 0;
+        int high = n / 10, cur = n % 10, low = 0;
+        while(high != 0 || cur != 0) {
+            if(cur == 0) {
+                res += high * digit;
+            } else if (cur == 1) {
+                res += high * digit + low + 1;
+            } else {
+                res += (high + 1) * digit;
+            }
+            low += cur * digit;
+            cur = high % 10;
+            high /= 10;
+            digit *= 10;
+        }
+        return res;
+    }
 }
 
 public class Solution {
@@ -52,5 +71,7 @@ public class Solution {
         NumberOf1 number = new NumberOf1();
         int count = number.numberOf1Between1AndN1(12013);
         System.out.println("1的总数:" + count);
+        int count1 = number.countDigitOne(12013);
+        System.out.println("1的总数:" + count1);
     }
 }

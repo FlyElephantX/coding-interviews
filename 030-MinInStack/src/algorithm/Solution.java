@@ -30,6 +30,39 @@ class MinInStack {
     }
 }
 
+class MinStack1 {
+    Stack<Integer> s1;
+    Stack<Integer> s2;
+
+    public MinStack1() {
+        s1 = new Stack<>();
+        s2 = new Stack<>();
+    }
+
+    public void push(int x) {
+        if (s2.isEmpty() ||  x <= s2.peek()) {
+            s2.push(x);
+        }
+        s1.push(x);
+    }
+
+    public void pop() {
+        int top = s1.pop();
+        if (top == s2.peek()) {
+            s2.pop();
+        }
+    }
+
+    public int top() {
+        return s1.peek();
+    }
+
+    public int min() {
+        return s2.peek();
+    }
+}
+
+
 
 public class Solution {
 
@@ -44,5 +77,12 @@ public class Solution {
         minStack.pop();
         minStack.push(0);
         System.out.println("最小值:" + minStack.min());
+
+        MinStack1 minStack1 = new MinStack1();
+        minStack1.push(-2);
+        minStack1.push(0);
+        minStack1.push(-1);
+        int min = minStack1.min();
+        System.out.println("最小值:" + min);
     }
 }
