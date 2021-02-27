@@ -69,6 +69,54 @@ class InversePairs {
         return count;
     }
 
+    public int inversePairs2(int [] array) {
+        int count = 0;
+        if (array == null || array.length == 0) {
+            return count;
+        }
+        count = mergeSort1(array, 0, array.length - 1);
+        return count;
+    }
+
+    public int mergeSort1(int[] array, int low, int high) {
+        int count = 0;
+        if (low >= high) {
+            return count;
+        }
+        int mid = (low + high) >> 1;
+        // 辅助数组
+        int left = mergeSort1(array, low, mid);
+        int right = mergeSort1(array, mid + 1, high);
+        count = left + right + merge1(array, low, mid, high);
+        return count;
+    }
+
+    public int merge1(int[] array, int low, int mid, int high) {
+        int len = high - low + 1;
+        int[] temp = new int[len];
+        int count = 0;
+        int left = low;
+        int right = mid + 1;
+        int i = 0;
+        while (left <= mid && right <= high) {
+            if (array[left] <= array[right]) {
+                temp[i++] = array[left++];
+            } else {
+                temp[i++] = array[right++];
+                count += (mid - left + 1);
+            }
+        }
+        while (left <= mid) {
+            temp[i++] = array[left++];
+        }
+        while (right <= high) {
+            temp[i++] = array[right++];
+        }
+        for (int j = 0; j < len; j++) {
+            array[low + j] = temp[j];
+        }
+        return count;
+    }
 }
 
 public class Solution {
@@ -78,5 +126,11 @@ public class Solution {
         InversePairs pairs = new InversePairs();
         int count = pairs.inversePairs1(nums);
         System.out.println("逆序对总数:" + count);
+        int[] nums2 = {7, 5, 6, 4};
+        int count1 = pairs.inversePairs2(nums2);
+        System.out.println("逆序对总数:" + count1);
+        int[] nums3 = {7, 5, 6, 4};
+        int count2 = pairs.reversePairs(nums3);
+        System.out.println("逆序对总数:" + count2);
     }
 }

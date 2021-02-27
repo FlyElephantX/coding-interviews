@@ -35,9 +35,11 @@ public class Solution {
 
     public static void main(String[] args) {
         UglyNumber number = new UglyNumber();
-        for (int i = 1; i <= 10; i++) {
-            int min = number.getUglyNumber(i);
-            System.out.println("丑数:" + min);
-        }
+//        for (int i = 1; i <= 10; i++) {
+//            int min = number.getUglyNumber(i);
+//            System.out.println("丑数:" + min);
+//        }
+        int min = number.getUglyNumber(10);
+        System.out.println("丑数:" + min);
     }
 }

@@ -37,6 +37,20 @@ class FirstNotRepeatingChar {
         }
         return '\0';
     }
+
+    public char firstUniqChar(String s) {
+        HashMap<Character, Boolean> dic = new HashMap<>();
+        char[] sc = s.toCharArray();
+        for(char c : sc) {
+            dic.put(c, !dic.containsKey(c));
+        }
+        for(char c : sc) {
+            if(dic.get(c)) {
+                return c;
+            }
+        }
+        return ' ';
+    }
 }
 
 public class Solution {
@@ -45,5 +59,7 @@ public class Solution {
         FirstNotRepeatingChar repeat = new FirstNotRepeatingChar();
         Character res = repeat.getFirstNotRepeatingChar1("abaccdef");
         System.out.println("第一次出现的字符:" + res);
+        char ch = repeat.firstUniqChar("abaccdef");
+        System.out.println("第一次出现的字符:" + ch);
     }
 }

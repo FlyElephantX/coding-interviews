@@ -23,6 +23,27 @@ class TreeDepth {
         int right = treeDepth(root.right);
         return left > right ? left + 1 : right + 1;
     }
+
+    public boolean isBalanced(BinaryTreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        return Math.abs(leftDepth - rightDepth) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    public int maxDepth(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        int left = maxDepth(root.left) + 1;
+        int right = maxDepth(root.right) + 1;
+        return left > right ? left : right;
+    }
 }
 
 public class Solution {
@@ -44,5 +65,11 @@ public class Solution {
         TreeDepth treeDepth = new TreeDepth();
         int depth = treeDepth.treeDepth(node1);
         System.out.println("二叉树的深度:" + depth);
+        boolean res = treeDepth.isBalanced(node1);
+        if (res) {
+            System.out.println("平衡二叉树");
+        } else {
+            System.out.println("非平衡二叉树");
+        }
     }
 }

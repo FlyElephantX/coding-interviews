@@ -1,5 +1,7 @@
 package algorithm;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.IntUnaryOperator;
 
 class BinaryTreeNode {
@@ -64,6 +66,42 @@ class KthNodeInBST {
         return null;
     }
 
+    private List<Integer> path = new LinkedList<>();
+    private int cnt;
+    public int kthLargest(BinaryTreeNode root, int k) {
+        traverse(root);
+        cnt = k;
+        return path.size() < k ? -1 : path.get(k - 1);
+    }
+
+    public void traverse(BinaryTreeNode root) {
+        if (root == null) {
+            return;
+        }
+        traverse(root.right);
+        if (cnt > 0 && path.size() == cnt) {
+            return;
+        }
+        path.add(root.val);
+        traverse(root.left);
+    }
+
+    int res1, k1;
+    public int kthLargest2(BinaryTreeNode root, int k) {
+        this.k = k;
+        dfs(root);
+        return res1;
+    }
+
+    void dfs(BinaryTreeNode root) {
+        if(root == null) return;
+        dfs(root.right);
+        if(k == 0) return;
+        if(--k == 0) res1 = root.val;
+        dfs(root.left);
+    }
+
+
 }
 
 public class Solution {
@@ -86,5 +124,21 @@ public class Solution {
         int k = 5;
         BinaryTreeNode node = bst.kthNode(node1, k);
         System.out.println("第" + k +"个节点的值:" + node.val);
+
+        BinaryTreeNode n1 = new BinaryTreeNode(3);
+        BinaryTreeNode n2 = new BinaryTreeNode(1);
+        BinaryTreeNode n3 = new BinaryTreeNode(4);
+        BinaryTreeNode n4 = new BinaryTreeNode(2);
+        n1.left = n2;
+        n1.right = n3;
+        n2.right = n4;
+        int val = bst.kthLargest(n1, 1);
+        System.out.println("第" + k +"个节点的值:" + val);
+
+        BinaryTreeNode res = bst.kthNode(n1, 1);
+        System.out.println("第" + k +"个节点的值:" + res.val);
+
+        int val2 = bst.kthLargest2(n1, 1);
+        System.out.println("第" + k +"个节点的值:" + val2);
     }
 }

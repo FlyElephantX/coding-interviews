@@ -56,6 +56,30 @@ class FirstCommonNodesInLists {
         }
         return length;
     }
+
+    // A链表总长度为LA + C，B链表总长度为LB + C。
+    //当指针按照题解方式走下去，p1第二次走到公共节点的时候，走过的长度为LA + C + LB，p2第二次走到公共节点的时候，走过的长度为LB + C + LA。p1 p2走过的长度相等，p1 p2 相遇。
+    //所以，当p1 p2 相遇（相等）的时候，指向的节点就是公共节点。
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode p1 = headA;
+        ListNode p2 = headB;
+        while (p1 != p2) {
+            if (p1 == null) {
+                p1 = headB;
+            } else {
+                p1 = p1.next;
+            }
+            if (p2 == null) {
+                p2 = headA;
+            } else {
+                p2 = p2.next;
+            }
+        }
+        return p1;
+    }
 }
 
 public class Solution {
