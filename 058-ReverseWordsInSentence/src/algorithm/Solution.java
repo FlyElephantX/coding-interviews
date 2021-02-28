@@ -1,10 +1,9 @@
 package algorithm;
 
-import java.util.Arrays;
-
 class ReverseWordsInSentence {
 
     public String reverse(String str) {
+        str = str.trim(); // 字符串去除首尾空格
         char[] arr = str.toCharArray();
         int len = arr.length;
         reverse(arr, 0 , len - 1);
@@ -12,9 +11,13 @@ class ReverseWordsInSentence {
         int start = 0;
         int end = 0;
         while (end < len) {
-            if (arr[end] == ' ' || end == len - 1) {
+            if (arr[end] == ' ') {
                 reverse(arr, start, end - 1);
                 start = end + 1;
+            }
+            if (end == len - 1) {
+                reverse(arr, start, end);
+                break;
             }
             end++;
         }
@@ -44,7 +47,7 @@ class ReverseWordsInSentence {
 public class Solution {
 
     public static void main(String[] args) {
-        String str = "I am a student.";
+        String str = "  hello world!  ";
         ReverseWordsInSentence sentence = new ReverseWordsInSentence();
         String res = sentence.reverse(str);
         System.out.println("翻转结果:" + res);

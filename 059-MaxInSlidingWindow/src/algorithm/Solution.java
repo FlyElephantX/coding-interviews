@@ -1,11 +1,6 @@
 package algorithm;
 
-import java.lang.module.FindException;
-import java.net.BindException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.*;
 
 class  MaxQueue {
 
@@ -63,6 +58,27 @@ class MaxInSlidingWindow {
         }
         return res;
     }
+
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums.length == 0 || k == 0) {
+            return new int[0];
+        }
+        Deque<Integer> deque = new LinkedList<>();
+        int[] res = new int[nums.length - k + 1];
+        for (int j = 0, i = 1 - k; j < nums.length; i++, j++) {
+            if (i > 0 && deque.peekFirst() == nums[i - 1]) { // 降序数组每轮窗口滑动都会进行该条件
+                deque.removeFirst();// 删除 deque 中对应的 nums[i-1]
+            }
+            while (!deque.isEmpty() && deque.peekLast() < nums[j]) {
+                deque.removeLast();// 保持 deque 递减
+            }
+            deque.addLast(nums[j]);
+            if (i >= 0) {
+                res[i] = deque.peekFirst();// 记录窗口最大值
+            }
+        }
+        return res;
+    }
 }
 
 public class Solution {
@@ -72,5 +88,8 @@ public class Solution {
         MaxInSlidingWindow window = new MaxInSlidingWindow();
         ArrayList<Integer> res = window.maxInWindows(nums, 3);
         System.out.println("滑动窗口的最大值:" + res);
+        int[] nums1 = {6, 5, 4, 3, 2, 1};
+        int[] res1 = window.maxSlidingWindow(nums1, 3);
+        System.out.println("滑动窗口的最大值:" + Arrays.toString(res1));
     }
 }

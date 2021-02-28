@@ -47,6 +47,28 @@ class DicesProbability {
         }
         return res;
     }
+
+    public double[] dicesProbability(int n) {
+        int[][] dp = new int[n + 1][6 * n + 1];
+        for(int i = 1; i <= 6; i++)
+            dp[1][i] = 1;
+
+        for(int i = 2; i <= n; i++) {
+            for(int j = i; j <= 6 * i; j++) {
+                for(int cur = 1; cur <= 6; cur++) {
+                    if (j - cur <= 0) {
+                        break;
+                    }
+                    dp[i][j] += dp[i - 1][j - cur];
+                }
+            }
+        }
+        double[] ans = new double[6 * n - n + 1];
+        for(int i = n; i <= 6 * n; i++) {
+            ans[i - n] = ((double) dp[n][i]) / (Math.pow(6, n));
+        }
+        return ans;
+    }
 }
 
 public class Solution {
@@ -57,5 +79,7 @@ public class Solution {
         System.out.println("骰子出现的概率:" + Arrays.toString(res1));
         double[] res2 = probability.twoSum(2);
         System.out.println("骰子出现的概率:" + Arrays.toString(res2));
+        double[] res3 = probability.dicesProbability(2);
+        System.out.println("骰子出现的概率:" + Arrays.toString(res3));
     }
 }

@@ -22,7 +22,7 @@ class LastNumberInCircle {
                 }
             }
             list.remove(current);
-            if (current > list.size() - 1) {
+            if (current >= list.size()) {
                 current = 0;
             }
         }
