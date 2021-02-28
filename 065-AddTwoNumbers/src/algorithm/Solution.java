@@ -8,6 +8,15 @@ class AddTwoNumbers {
         num2 = temp ^ num1;
         return num1;
     }
+
+    public int add1(int a, int b) {
+        while (b != 0) {
+            int c = (a & b) << 1; // 进位
+            a = a ^ b; // 非进位和
+            b = c;// 进位
+        }
+        return a;
+    }
 }
 
 public class Solution {
